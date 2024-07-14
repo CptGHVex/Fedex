@@ -4,11 +4,11 @@ FROM node:18
 # Create and change to the app directory
 WORKDIR /usr/src/app
 
+# Install app dependencies
+RUN npm install --package-lock
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
-
-# Install app dependencies
-RUN npm install
 
 # Copy the rest of the application code
 COPY . .
