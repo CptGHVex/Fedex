@@ -4,14 +4,20 @@ FROM node:18
 # Create and change to the app directory
 WORKDIR /usr/src/app
 
-# Copy package.json
+# Copy package.json to the container
 COPY package.json ./
 
-# Ensure package-lock.json is generated and install dependencies
-RUN npm install --package-lock
+# Install dependencies to generate package-lock.json
+RUN npm install
+
+# Copy package-lock.json to the container
+COPY package-lock.json ./
 
 # Copy the rest of the application code
 COPY . .
+
+# Install dependencies again to ensure all packages are up-to-date
+RUN npm install
 
 # Expose the port the app runs on
 EXPOSE 8080
